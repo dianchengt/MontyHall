@@ -1,0 +1,37 @@
+import java.util.Scanner;
+
+public class Main{
+  public static void main(String [] args){
+    Scanner scan = new Scanner(System.in);
+
+    //declaring variables. 
+    int userGuess;
+    int doorRevealed; 
+    String change;
+
+    //welcoming the user and asking them to pick a door number.
+    System.out.println("Welcome to the Monty Hall Game!");
+    System.out.println("");
+    System.out.println("There are two goats and a car randomly placed behind doors 1, 2, and 3");
+    System.out.print("Where do you think the car is? Enter 1, 2, or 3: ");
+    userGuess = scan.nextInt();
+    scan.nextLine();
+
+    //creating an object so I can use my methods later.
+    MontyHall game = new MontyHall(userGuess);
+
+    //revealing a door (that contain a goat) and asking the user if they want to switch their guess. 
+    doorRevealed = game.revealDoor();
+    System.out.println("One of the goats is behind door " + doorRevealed);
+    System.out.print("Do you want to switch your guess? Yes or No: ");
+    change = scan.nextLine();
+
+    //if they user does want to switch their guess, the changeGuess() method will be called and accomplish that. 
+    if(change.equals("Yes") || change.equals("yes")){
+      System.out.println("Guess switched from " + userGuess + " to " + game.changeGuess(doorRevealed));
+    }
+
+    //using the checkUserGuess() method to determine if the user won the car or not. 
+    game.checkUserGuess();
+  }
+}
