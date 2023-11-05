@@ -1,0 +1,87 @@
+public class MontyHall{
+  //instance variables
+  private int userGuess;
+  private int correctDoor;
+  private int doorRevealed; 
+
+  //constructor that sets a value for the user's guess and correct door num to be accessed by other methods. 
+  public MontyHall(int userGuess){
+    this.userGuess = userGuess;
+    int randNum = (int) (Math.random() * 3) + 1;
+    if(randNum == 1){
+      correctDoor = 1;
+    }else if(randNum == 2){
+      correctDoor = 2;
+    }else if(randNum == 3){
+      correctDoor = 3;
+    }
+  }
+
+  //method that reveals a random door depending on the user's guess and the correct dor num. (It will not reveal the door with the car).
+  public int revealDoor(){
+    int randNum = (int) (Math.random() * 2) + 1;
+    if(userGuess == 1){
+      if(correctDoor == 2){
+        doorRevealed = 3;
+      }else if(correctDoor == 3){
+        doorRevealed = 2;
+      }else if(correctDoor == 1){
+        if(randNum == 1){
+          doorRevealed = 2;
+        }else if(randNum == 2){
+          doorRevealed = 3;
+        }
+      }
+    }else if(userGuess == 2){
+      if(correctDoor  == 1){
+        doorRevealed = 3;
+      }else if(correctDoor == 3){
+        doorRevealed = 1;
+      }else if(correctDoor == 2){
+      }if(randNum == 1){
+        doorRevealed = 1;
+      }else if(randNum == 2){
+        doorRevealed = 3;
+      }
+    }else if(userGuess == 3){
+      if(correctDoor == 1){
+        doorRevealed = 2;
+      }else if(correctDoor == 2){
+        doorRevealed = 1;
+      }else if(correctDoor == 3){
+      }if(randNum == 1){
+        doorRevealed = 1;
+      }else if(randNum  == 2){
+        doorRevealed = 2;
+      }
+    }
+    return doorRevealed;
+  }
+
+  //method that changes the user's guess based on the user's original guess and the door that was revealed. (It changes the user's guess to the only door num that has not been used).
+  public int changeGuess(int doorRevealed){
+    if(userGuess == 1 && doorRevealed == 2){
+      userGuess = 3;
+    }else if(userGuess == 1 && doorRevealed == 3){
+      userGuess = 2;
+    }else if(userGuess == 2 && doorRevealed == 1){
+      userGuess = 3;
+    }else if(userGuess == 2 && doorRevealed == 3){
+      userGuess = 1;
+    }else if(userGuess == 3 && doorRevealed == 1){
+      userGuess = 2;
+    }else if(userGuess == 3 && doorRevealed == 2){
+      userGuess = 1;
+    }
+    return userGuess;
+  }
+
+  //method that checks the user's final guess with the correct door num. If the two values are equal, then they win the car. If not, then they win a goat. 
+  public void checkUserGuess(){
+    if(userGuess == correctDoor){
+      System.out.println("You won the car!");
+    }else{
+      System.out.println("The car is behind door " + correctDoor + ". You lost! (Or you could say you won a goat!)");
+    }
+  }
+}
